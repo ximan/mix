@@ -1,0 +1,150 @@
+@charset "utf-8";
+// @维护人：西门 https://github.com/ximan/mix
+
+// 默认加webkit前缀
+@mixin css-prefix($property,$value...){
+    -webkit-#{$property}:$value;
+    #{$property}:$value;
+}
+// display
+@mixin display($value){
+    @if $value == flex{
+        display:-webkit-box;
+        display:-webkit-flex;
+        display:-ms-flexbox;
+    }@else if $value == inline-flex{
+        display:-webkit-inline-box;
+        display:-webkit-inline-flex;
+        display:-ms-inline-flexbox;
+    }
+    display:$value;
+}
+// flex
+@mixin flex($value:1){
+    -webkit-box-flex:$value;
+    -webkit-flex:$value;
+    -ms-flex:$value;
+    flex:$value;
+}
+// 伸缩流的方向
+// row | column | row-reverse
+// 默认值：column
+@mixin flex-direction($value:column){
+    -ms-flex-direction:$value;
+    @if $value == row{
+        @include css-prefix(box-orient,horizontal);
+    }@else if $value == column{
+        @include css-prefix(box-orient,vertical);
+    }@else if $value == row-reverse{
+        @include css-prefix(box-direction,reverse);
+    }
+    @include css-prefix(flex-direction,$value);
+}
+// 主轴对齐
+// flex-start | flex-end | center | space-between
+// 默认值：center
+@mixin justify-content($value:center){
+    @if $value == flex-start{
+        -ms-flex-pack:start;
+        @include css-prefix(box-pack,start);
+    }@else if $value == flex-end{
+        -ms-flex-pack:end;
+        @include css-prefix(box-pack,end);
+    }@else if $value == center{
+        -ms-flex-pack:$value;
+        @include css-prefix(box-pack,$value);
+    }@else if $value == space-between{
+        -ms-flex-pack:justify;
+        @include css-prefix(box-pack,justify);
+    }
+    @include css-prefix(justify-content,$value);
+}
+// 侧轴对齐
+// flex-start | flex-end | center | stretch
+// 默认值：center
+@mixin align-items($value:center){
+    @if $value == flex-start{
+        -ms-flex-align:start;
+        @include css-prefix(box-align,start);
+    }@else if $value == flex-end{
+        -ms-flex-align:end;
+        @include css-prefix(box-align,end);
+    }@else if $value == center{
+        -ms-flex-align:$value;
+        @include css-prefix(box-align,$value);
+    }@else if $value == stretch{
+        -ms-flex-align:$value;
+        @include css-prefix(box-align,$value);
+    }
+    @include css-prefix(align-items,$value);
+}
+// 用户选择
+@mixin user-select($select: text){
+    -webkit-user-select:$select;
+    -ms-user-select:$select;
+    user-select:$select;
+}
+// 圆角
+@mixin radius($px:5px){
+    -webkit-border-radius: $px;
+    border-radius: $px;
+}
+// 盒子模型
+@mixin box-sizing($value:border-box){
+    -webkit-box-sizing: $value;
+    box-sizing:$value;
+}
+// 转换
+@mixin transform($value...){
+    @include css-prefix(transform,$value);
+}
+// 位移
+@mixin translate($x:0, $y:0){
+    @include css-prefix(transform,translate($x, $y));
+}
+// 位移3D
+@mixin translate3d($x:0, $y:0, $z:0){
+    @include css-prefix(transform,translate3d($x, $y, $z));
+}
+// 旋转
+@mixin rotate($deg:0){
+    @include css-prefix(transform,rotate($deg));
+}
+// 旋转3D
+@mixin rotate3d($x:0, $y:0, $z:0, $deg:0){
+    @include css-prefix(transform,rotate3d($x, $y, $z, $deg));
+}
+// 过渡
+@mixin transition($value...){
+    @include css-prefix(transition,$value);
+}
+// 动画
+@mixin animation($value...){
+    @include css-prefix(animation,$value);
+}
+// 清除浮动
+@mixin clearfix(){
+    &:after{
+        content:"";
+        display:table;
+        clear:both;
+    }
+}
+// 单行文字超出隐藏加省略号
+@mixin ellipsis(){
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow:ellipsis;
+}
+// padding比例缩放
+// .padding-propor(2/3);
+@mixin padding-propor($value:1){
+    position: relative;
+    &:after{
+        content: '';
+        display: block;
+        width: 100%;
+        padding-top: percentage($value);
+    }
+}
+
