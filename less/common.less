@@ -1,6 +1,6 @@
 // @维护人：西门 https://github.com/ximan/mix
 
-// CSS3前缀
+// display
 .display(...){
     display: @arguments;
 }
@@ -16,6 +16,7 @@
     display:-ms-inline-flexbox;
     display:@value;
 }
+// flex
 .flex(@v:1){
     -webkit-box-flex:@v;
     -webkit-flex:@v;
@@ -157,7 +158,7 @@
 // 线性渐变
 // .linear-gradient(60deg; #000, #fff);
 .linear-gradient(@degree; @colors)when(default()){
-    @degreeW3c : abs(@degree) + 90;
+    @degreeW3c : 90 - @degree;
     background-image: -webkit-linear-gradient(@degree,@colors);
     background-image: -ms-linear-gradient(@degree,@colors);
     background-image: linear-gradient(@degreeW3c,@colors);
