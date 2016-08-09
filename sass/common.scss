@@ -27,7 +27,8 @@
     flex:$value;
 }
 // 伸缩流的方向
-// row | column | row-reverse
+// 左到右 | 上到下  | 右到左       | 下到上
+// row   | column | row-reverse | column-reverse
 // 默认值：column
 @mixin flex-direction($value:column){
     -ms-flex-direction:$value;
@@ -36,11 +37,17 @@
     }@else if $value == column{
         @include css-prefix(box-orient,vertical);
     }@else if $value == row-reverse{
+        -webkit-box-pack:end;
         @include css-prefix(box-direction,reverse);
+    }@else if $value == column-reverse{
+        -webkit-box-pack:end;
+        @include css-prefix(box-direction,reverse);
+        @include css-prefix(box-orient,vertical);
     }
     @include css-prefix(flex-direction,$value);
 }
 // 主轴对齐
+// 前         | 后        | 居中   | 两端对齐
 // flex-start | flex-end | center | space-between
 // 默认值：center
 @mixin justify-content($value:center){
@@ -60,6 +67,7 @@
     @include css-prefix(justify-content,$value);
 }
 // 侧轴对齐
+// 顶         | 底        | 居中   | 伸展
 // flex-start | flex-end | center | stretch
 // 默认值：center
 @mixin align-items($value:center){
