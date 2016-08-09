@@ -28,7 +28,9 @@
     -webkit-@{property}:@value;
     @{property}:@value;
 }
-// row | column | row-reverse
+// 伸缩流的方向
+// 左到右 | 上到下  | 右到左       | 下到上
+// row   | column | row-reverse | column-reverse
 // 默认值：column
 .flex-direction(@value)when(@value=row){
     -ms-flex-direction:@value;
@@ -42,9 +44,19 @@
 }
 .flex-direction(@value)when(@value=row-reverse){
     -ms-flex-direction:@value;
+    .css-prefix(box-pack,end);
     .css-prefix(box-direction,reverse);
     .css-prefix(flex-direction,@value);
 }
+.flex-direction(@value)when(@value=column-reverse){
+    -ms-flex-direction:@value;
+    .css-prefix(box-pack,end);
+    .css-prefix(box-direction,reverse);
+    .css-prefix(box-orient,vertical);
+    .css-prefix(flex-direction,@value);
+}
+// 主轴对齐
+// 前         | 后        | 居中   | 两端对齐
 // flex-start | flex-end | center | space-between
 // 默认值：center
 .justify-content(@value)when(@value=flex-start){
@@ -67,6 +79,8 @@
     .css-prefix(box-pack,justify);
     .css-prefix(justify-content,@value);
 }
+// 侧轴对齐
+// 顶         | 底        | 居中   | 伸展
 // flex-start | flex-end | center | stretch
 // 默认值：center
 .align-items(@value)when(@value=flex-start){
@@ -89,6 +103,7 @@
     .css-prefix(box-align,@value);
     .css-prefix(align-items,@value);
 }
+// 圆角
 .radius(@x:5px){
     -webkit-border-radius: @x;
     border-radius: @x;
@@ -97,6 +112,7 @@
     box-shadow:@shadow;
     -webkit-box-shadow:@shadow;
 }
+// 盒子模型
 .box-sizing(@style:border-box){
     -webkit-box-sizing: @style;
     box-sizing:@style;
@@ -105,6 +121,7 @@
     -webkit-transform-origin:@arguments;
     transform-origin:@arguments;
 }
+// 转换
 .transform(@arg){
     -webkit-transform:@arg;
     transform:@arg;
@@ -115,24 +132,31 @@
     -webkit-transform:@arg;
     transform:@arg;
 }
+// 位移
 .translate(@x:0; @y:0){
     .transform(translate(@x, @y));
 }
+// 3D位移
 .translate3d(@x:0; @y:0; @z:0){
     .transform(translate3d(@x, @y, @z));
 }
+// 旋转
 .rotate(@degree:0){
     .transform(rotate(@degree));
 }
+// 3D旋转
 .rotate3d(@x:0; @y:0; @z:0; @degree:0){
     .transform(rotate3d(@x, @y, @z, @degree));
 }
+// 缩放
 .scale(@num:1){
     .transform(scale(@num));
 }
+// 3D缩放
 .scale3d(@x:1; @y:1; @z:1){
     .transform(scale3d(@x, @y, @z));
 }
+// 扭曲
 .skew(@x:0; @y:0){
     .transform(skew(@x, @y));
 }
@@ -163,17 +187,19 @@
     background-image: -ms-linear-gradient(@degree,@colors);
     background-image: linear-gradient(@degreeW3c,@colors);
 }
+// 动画
 .animation(...){
     -webkit-animation:@arguments;
     animation:@arguments;
 }
+// 选中
 .user-select(@select: text){
     -webkit-user-select:@select;
     -ms-user-select:@select;
     user-select:@select;
 }
 
-// 简写
+// 清除浮动简写
 .clearfix(){
     &:after{
         content:"";
@@ -181,10 +207,11 @@
         clear:both;
     }
 }
+// 将溢
 .ellipsis(){
     overflow: hidden;
     white-space: nowrap;
-    text-overflow:ellipsis;
+    text-overflow: ellipsis;
 }
 // padding比例缩放
 // .padding-propor(2/3);
